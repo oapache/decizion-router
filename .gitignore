@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.pt
+*.pth
+*.log
+.env
+.env.*
+!.env.example
+registry/state.json
+data/
+evals/results/
+decizion-router/scripts/bootstrap.py
+decizion-router/scripts/seed_sweep_v8.sh
+decizion-router/scripts/seed_sweep_v8_final.sh

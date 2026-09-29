@@ -1,0 +1,33 @@
+# Production config for the Laya router.  Versioned alongside the model: config-v7.yaml is the
+# copy that was live when router-v7 was promoted; this file is the active one.
+device: cuda
+dtype: fp16
+
+# The challenger answers every request in parallel and its answer is only logged.
+# Costs latency on the shadow path, carries no risk, and produces the data a promotion needs.
+shadow_mode: true
+
+# Below this confidence the router rounds the agent up one level and queues the case for review.
+low_confidence: 0.5
+
+# Floors applied when the request matches a risk pattern (migration, data loss, concurrency,
+# security, architecture). Under-routing those is the expensive mistake.
+min_reasoning_on_risk: high
+min_agent_on_risk: normal_code
+
+# A decision is auto-appliable by Codex only when the champion MEASURED at least this on the eval
+# suite. Anything below the gate is still returned, but marked advisory so Codex keeps its default.
+# xhigh stays advisory until its recall is trustworthy unattended -- that is the point of the gate.
+auto_apply_gates:
+  route:
+    route_accuracy: 0.85
+  agent:
+    agent_accuracy: 0.80
+    deep_code_recall: 0.80
+  reasoning:
+    reasoning_accuracy: 0.80
+    xhigh_recall: 0.90
+  retrieval:
+    retrieval_accuracy: 0.80
+  clarify:
+    clarify_accuracy: 0.85

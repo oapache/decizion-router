@@ -1,0 +1,12 @@
+# Pinned to what this router was built and measured with (RTX 3070, CUDA 12.x, Python 3.10).
+# torch is intentionally NOT pinned to a CUDA build here: install it for your platform first,
+# see README "Install". Everything else is reproducible from this file.
+laya==0.3.3
+transformers>=4.45.0,<5
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+httpx>=0.27.0
+PyYAML>=6.0
+mcp>=1.2.0
+bitsandbytes>=0.43.0 ; platform_system != "Darwin"   # only needed to TRAIN new versions

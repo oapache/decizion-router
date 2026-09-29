@@ -1,0 +1,56 @@
+{
+  "questions_version": 1,
+  "trained_with": "finetune/agent_routing.py",
+  "decisions": {
+    "route": {
+      "type": "choice",
+      "instructions": "Como esse pedido deve ser tratado?",
+      "criteria": {
+        "tool": "Uma unica chamada de ferramenta ja resolve o pedido",
+        "agent": "Precisa de um agente para investigar, raciocinar ou alterar codigo",
+        "clarify": "O pedido esta vago ou ambiguo demais para agir sem perguntar"
+      }
+    },
+    "agent": {
+      "type": "choice",
+      "instructions": "Qual agente deve executar esse pedido?",
+      "criteria": {
+        "fast_code": "Tarefa pequena, local e bem definida, com pouca ambiguidade",
+        "normal_code": "Tarefa de complexidade media, com investigacao e alguns arquivos",
+        "deep_code": "Problema dificil, ambiguo ou de alto impacto, que exige raciocinio profundo"
+      }
+    },
+    "reasoning": {
+      "type": "score",
+      "instructions": "Quanto raciocinio esse pedido exige?",
+      "criteria": [
+        "Nenhum raciocinio necessario, e uma chamada direta",
+        "Raciocinio curto, tarefa delimitada",
+        "Raciocinio com varias etapas e verificacao",
+        "Raciocinio profundo, hipoteses concorrentes e evidencia conflitante"
+      ],
+      "levels": [
+        "skip",
+        "medium",
+        "high",
+        "xhigh"
+      ]
+    },
+    "retrieval": {
+      "type": "noul",
+      "instructions": "E preciso buscar codigo, documentacao ou dados que nao estao no contexto?",
+      "criteria": {
+        "false": "Nao, basta o que ja esta no contexto ou e so executar um comando",
+        "true": "Sim, e preciso ler codigo, documentacao ou dados do projeto que nao estao aqui"
+      }
+    },
+    "clarify": {
+      "type": "noul",
+      "instructions": "Falta informacao essencial para executar esse pedido?",
+      "criteria": {
+        "false": "Nao, o pedido esta claro o suficiente para agir",
+        "true": "Sim, falta informacao essencial para saber o que fazer"
+      }
+    }
+  }
+}
